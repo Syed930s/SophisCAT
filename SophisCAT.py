@@ -21,7 +21,7 @@ basename = os.path.splitext(os.path.basename(infile))[0]
 outfile = basename + ".py"
 orig_name = os.path.basename(infile)
 
-print('Include subprocess.Popen([sys.executable, "' + outfile + '"]) in the generated code? (y/n)')
+print('Include subprocess.Popen(["' + orig_name + '"]) in the generated code? (y/n)')
 ans = input().strip().lower()
 include_pop = ans in ("y", "yes")
 
@@ -39,8 +39,8 @@ code += v2 + " = base64.b64decode(" + v1 + ")\n"
 code += 'with open("' + orig_name + '","wb") as f:\n'
 code += "    f.write(" + v2 + ")\n"
 if include_pop:
-    code += 'subprocess.Popen([sys.executable, "' + outfile + '"])\n'
-
+    code += 'subprocess.Popen(["' + orig_name + '"])\n'
+# Up i was fucking acting delulu i written when i was half asleeo so it did this shit and ran itself
 with open(outfile, "w") as f:
     f.write(code)
 
